@@ -4,14 +4,14 @@ This is an implementation of a data structure known as a **cuckoo
 filter**.  The data structure is described in a paper called *[Cuckoo
 Filter: Practically Better Than
 Bloom](https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf)* by
-Bin Fan, David G. Andersen, Michael Kaminsky and, Michael
+Bin Fan, David G. Andersen, Michael Kaminsky and Michael
 D. Mitzenmacher.
 
 Cuckoo filters, like Bloom filters, are probabilistic data structures
 useful for determining whether a piece of data is present in a set.
 Like Bloom filters, cuckoo filters do not store the key being looked
 up, or the value of the data, so they are appropriate only for
-checking whether the primary data source should be checked.
+checking whether the primary data source should be queried.
 
 Unlike Bloom filters, data can be deleted from cuckoo filters.
 
