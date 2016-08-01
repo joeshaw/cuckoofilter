@@ -104,16 +104,6 @@ func (f *Filter) emptyPosition(idx uint32) int {
 	return f.matchPosition(idx, 0)
 }
 
-func (f *Filter) countWithinBucket(idx uint32) int {
-	count := 0
-	for i := 0; i < entriesPerBucket; i++ {
-		if f.table[idx][i] != 0 {
-			count++
-		}
-	}
-	return count
-}
-
 // Add adds an element to the cuckoo filter.  If the filter is too
 // heavily loaded, ErrTooFull may be returned, which signifies that
 // the filter must be rebuilt with an increased maxKeys parameter.
@@ -138,7 +128,7 @@ func (f *Filter) Add(d []byte) error {
 	idx := [2]uint32{i1, i2}[rand.Intn(2)]
 
 	for i := 0; i < maxDisplacements; i++ {
-		j := uint32(rand.Intn(f.countWithinBucket(idx)))
+		j := uint32(rand.Intn(entriesPerBucket))
 
 		fp, f.table[idx][j] = f.table[idx][j], fp
 		idx = f.alternateIndex(idx, fp)
