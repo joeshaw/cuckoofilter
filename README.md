@@ -13,7 +13,11 @@ Like Bloom filters, cuckoo filters do not store the key being looked
 up, or the value of the data, so they are appropriate only for
 checking whether the primary data source should be queried.
 
-Unlike Bloom filters, data can be deleted from cuckoo filters.
+Cuckoo filters (and Bloom filters) can return false positives when
+checking for presence, but will never return a false negative.
+
+Unlike (standard, non-counting) Bloom filters, data can be deleted
+from cuckoo filters.
 
 To use,
 
