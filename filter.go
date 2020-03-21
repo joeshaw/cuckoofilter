@@ -4,10 +4,11 @@
 package cuckoofilter
 
 import (
-	"crypto/sha1"
 	"encoding/binary"
 	"errors"
 	"math/rand"
+
+	"github.com/zhenjl/cityhash"
 )
 
 // 4 entries per bucket is suggested by the paper in section 5.1,
@@ -64,8 +65,7 @@ func New(maxKeys uint32) *Filter {
 }
 
 func hash(data []byte) uint64 {
-	s := sha1.Sum(data)
-	return binary.LittleEndian.Uint64(s[:])
+	return cityhash.CityHash64(data, uint32(len(data)))
 }
 
 func (f *Filter) bucketIndex(hv uint32) uint32 {
